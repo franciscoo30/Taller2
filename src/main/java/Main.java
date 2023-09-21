@@ -42,7 +42,7 @@ public class Main {
                     int indiceDisponible = obtenerUltimoEspacio(registro);
                     String nombre;
                     String Estadocivil;
-                    int edad;
+                    String edad;
 
 
 
@@ -75,7 +75,8 @@ public class Main {
 
                     while(true) {
                         try {
-                            edad = new Scanner(System.in).nextInt();
+                            edad = new Scanner(System.in).nextLine();
+
                         } catch (InputMismatchException e) {
                             System.err.println("Opción inválida");
                             continue;
@@ -99,7 +100,7 @@ public class Main {
 
 
 
-                for (double [] persona : registro) {
+                for (String [] persona : registro) {
                     if (persona[2] >= 18) mayoresDeEdad++;
                 }
 
@@ -123,35 +124,35 @@ public class Main {
 
                 System.out.println("Hay " + menoresDeEdad + " menores de edad.");
             } else if(a == 4) {
-                int mmmm = 0;
+                int mayoresDeEdad = 0;
 
 
 
 
-                for (double [] persona : registro) {
+                for (String [] persona : registro) {
                     if (persona[2] >= 60 && persona[1].equals("casado/a")) {
-                        mmmm++;
+                        mayoresDeEdad++;
                     } else if(persona[2] >= 65 && persona[1].equals("soltero/a")) {
-                        mmmm++;
+                        mayoresDeEdad++;
                     }
                 }
-                System.out.println("Hay " + mmmm + " personas de tercera edad");
+                System.out.println("Hay " + mayoresDeEdad + " personas de tercera edad");
             } else if(a == 5) {
-                int c = 0;
-                int d = 0;
-                for(double[] persona : registro) {
+                int casados = 0;
+                int solteros = 0;
+                for(String[] persona : registro) {
                     if(persona[1].equals("casado/a")) {
-                        c++;
+                        casados++;
                     } else if(persona[1].equals("soltero/a")) {
-                        d++;
+                        solteros++;
                     }
                 }
 
 
 
 
-                System.out.println("Hay " + d + " casados/as.");
-                System.out.println("Hay " + c + " solteros/as.");
+                System.out.println("Hay " + casados + " casados/as.");
+                System.out.println("Hay " + solteros + " solteros/as.");
             } else if(a == 6) {
                 System.out.println("Programa finalizado");
             }
@@ -162,20 +163,20 @@ public class Main {
 
 
     public static int obtenerUltimoEspacio(String [][] registro) {
-        return registro.length - espaciosDisponibles(registro);
+        return registro.length - espaciosOcupados(registro);
     }
 
 
 
 
-    public static int hayCupo(String [][] registro) {
-        return espaciosDisponibles(registro) != 0;
+    public static boolean hayCupo(String [][] registro) {
+        return espaciosOcupados(registro) != 0;
     }
 
 
 
 
-    public static int espaciosDisponibles(String [][] registro) {
+    public static int espaciosOcupados(String [][] registro) {
         for(int i = 0; i < registro.length; i++) {
             if(registro[i][0].equals("")){
                 return registro.length - i;
