@@ -1,9 +1,5 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-
-
-
 public class Main {
     public static void main(String[] args) {
         String [][] registro = new String [50][3];
@@ -101,7 +97,8 @@ public class Main {
 
 
                 for (String [] persona : registro) {
-                    if (persona[2] >= 18) mayoresDeEdad++;
+                    int edad = Integer.parseInt(persona[2]);
+                    if (edad >= 18) mayoresDeEdad++;
                 }
 
 
@@ -110,13 +107,13 @@ public class Main {
                 System.out.println("Hay " + mayoresDeEdad + " mayores de edad.");
             } else if(a == 3) {
                 int menoresDeEdad = 0;
-                int queSera = obtenerUltimoEspacio(registro);
 
 
 
 
-                for (int i = 0; i < queSera; i++) {
-                    if (registro[i][2] < 18) menoresDeEdad++;
+                for (String[] persona : registro){
+                    int edad = Integer.parseInt(persona[2]);
+                    if (edad < 18) menoresDeEdad++;
                 }
 
 
@@ -130,9 +127,10 @@ public class Main {
 
 
                 for (String [] persona : registro) {
-                    if (persona[2] >= 60 && persona[1].equals("casado/a")) {
+                    int edad = Integer.parseInt(persona[2]);
+                    if (edad >= 60 && persona[1].equals("casado/a")) {
                         mayoresDeEdad++;
-                    } else if(persona[2] >= 65 && persona[1].equals("soltero/a")) {
+                    } else if(edad >= 65 && persona[1].equals("soltero/a")) {
                         mayoresDeEdad++;
                     }
                 }
