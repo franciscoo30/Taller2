@@ -5,9 +5,6 @@ public class Main {
         String [][] registro = new String [50][3];
         int a = -1;
 
-
-
-
         do {
             System.out.println("""
                 Menú
@@ -28,7 +25,7 @@ public class Main {
                 } catch (InputMismatchException e) {
                     System.err.println("Opción inválida");
                 }
-            }while (a > 0 || a < 6);
+            } while (a < 1 || a > 6);
 
 
 
@@ -40,17 +37,13 @@ public class Main {
                     String Estadocivil;
                     String edad;
 
-
-
-
                     while(true) {
                         try {
                             nombre = new Scanner(System.in).nextLine();
+                            break;
                         } catch (InputMismatchException e) {
                             System.err.println("Opción inválida");
-                            continue;
                         }
-                        break;
                     }
 
 
@@ -59,11 +52,10 @@ public class Main {
                     while(true) {
                         try {
                             Estadocivil = new Scanner(System.in).nextLine();
+                            break;
                         } catch (InputMismatchException e) {
                             System.err.println("Opción inválida");
-                            continue;
                         }
-                        break;
                     }
 
 
@@ -72,12 +64,10 @@ public class Main {
                     while(true) {
                         try {
                             edad = new Scanner(System.in).nextLine();
-
+                            break;
                         } catch (InputMismatchException e) {
                             System.err.println("Opción inválida");
-                            continue;
                         }
-                        break;
                     }
 
 
@@ -90,71 +80,60 @@ public class Main {
                 } else {
                     System.out.println("No hay cupo.");
                 }
-            } else if(a == 2) {
+            } else if (a == 2) {
                 int mayoresDeEdad = 0;
-
-
-
-
-                for (String [] persona : registro) {
-                    int edad = Integer.parseInt(persona[2]);
-                    if (edad >= 18) mayoresDeEdad++;
-                }
-
-
-
-
-                System.out.println("Hay " + mayoresDeEdad + " mayores de edad.");
-            } else if(a == 3) {
-                int menoresDeEdad = 0;
-
-
-
-
-                for (String[] persona : registro){
-                    int edad = Integer.parseInt(persona[2]);
-                    if (edad < 18) menoresDeEdad++;
-                }
-
-
-
-
-                System.out.println("Hay " + menoresDeEdad + " menores de edad.");
-            } else if(a == 4) {
-                int mayoresDeEdad = 0;
-
-
-
-
-                for (String [] persona : registro) {
-                    int edad = Integer.parseInt(persona[2]);
-                    if (edad >= 60 && persona[1].equals("casado/a")) {
-                        mayoresDeEdad++;
-                    } else if(edad >= 65 && persona[1].equals("soltero/a")) {
-                        mayoresDeEdad++;
+                for (String[] persona : registro) {
+                    if (persona != null && persona[2] != null && !persona[2].isEmpty()) {
+                        int edad = Integer.parseInt(persona[2]);
+                        if (edad >= 18) {
+                            mayoresDeEdad++;
+                        }
                     }
                 }
-                System.out.println("Hay " + mayoresDeEdad + " personas de tercera edad");
-            } else if(a == 5) {
+                System.out.println("Hay " + mayoresDeEdad + " mayores de edad.");
+            } else if (a == 3) {
+                int menoresDeEdad = 0;
+                for (String[] persona : registro) {
+                    if (persona != null && persona[2] != null && !persona[2].isEmpty()) {
+                        int edad = Integer.parseInt(persona[2]);
+                        if (edad < 18) {
+                            menoresDeEdad++;
+                        }
+                    }
+                }
+                System.out.println("Hay " + menoresDeEdad + " menores de edad.");
+            } else if (a == 4) {
+                int personasDeTerceraEdad = 0;
+                for (String[] persona : registro) {
+                    if (persona != null && persona[2] != null && !persona[2].isEmpty() && persona[1] != null) {
+                        int edad = Integer.parseInt(persona[2]);
+                        String estadoCivil = persona[1];
+                        if ((edad >= 60 && estadoCivil.equals("casado/a")) || (edad >= 65 && estadoCivil.equals("soltero/a"))) {
+                            personasDeTerceraEdad++;
+                        }
+                    }
+                }
+                System.out.println("Hay " + personasDeTerceraEdad + " personas de tercera edad.");
+            } else if (a == 5) {
                 int casados = 0;
                 int solteros = 0;
-                for(String[] persona : registro) {
-                    if(persona[1].equals("casado/a")) {
-                        casados++;
-                    } else if(persona[1].equals("soltero/a")) {
-                        solteros++;
+                for (String[] persona : registro) {
+                    if (persona != null && persona[1] != null) {
+                        if (persona[1].equals("casado/a")) {
+                            casados++;
+                        } else if (persona[1].equals("soltero/a")) {
+                            solteros++;
+                        }
                     }
                 }
-
-
-
-
                 System.out.println("Hay " + casados + " casados/as.");
                 System.out.println("Hay " + solteros + " solteros/as.");
-            } else if(a == 6) {
-                System.out.println("Programa finalizado");
             }
-        }while (a == 6);
+            else if(a == 6) {
+                System.out.println("Programa finalizado");
+                break;
+            }
+        } while (a == 6);
     }
 
 
@@ -174,9 +153,9 @@ public class Main {
 
 
 
-    public static int espaciosOcupados(String [][] registro) {
-        for(int i = 0; i < registro.length; i++) {
-            if(registro[i][0].equals("")){
+    public static int espaciosOcupados(String[][] registro) {
+        for (int i = 0; i < registro.length; i++) {
+            if (registro[i][0] == null || registro[i][0].equals("")) {
                 return registro.length - i;
             }
         }
